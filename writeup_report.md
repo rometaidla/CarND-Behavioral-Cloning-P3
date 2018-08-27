@@ -30,13 +30,6 @@ The _'Behavioural cloning.ipynb'_ jupyter notebook contains the code for trainin
 
 My model consists of a convolution neural network with 5x5 and 3x3 filter sizes and depths between 24 and 64. All convolutional layers use RELU activation functions to introduce linearity.
 
-##### Normalization
-Keras lambda layer is used to normalize data around mean 0, which improves vanishing gradients and also increases convergence.
-
-##### Data augmentation
-
-Was not needed as network already performed with current dataset, but if bigger dataset is needed, Keras generators must be used as memory requirements were already limiting factor on _AWS EC2 g2.2xlarge_ instance.
-
 #### 2. Attempts to reduce overfitting in the model
 
 ##### Dropout
@@ -45,19 +38,30 @@ Dropout layers with probability 0.5 is added to first 2 fully connected layers. 
 ##### Regularization
 Didn't try regularization as model already performed quite well without it.
 
-#### Training
+##### Training
 
 The model was trained and validated on different data sets (80/20% split) to ensure that the model was not overfitting. The model was tested iteratively by running it through the simulator after every change and ensuring that given change actually improved how vehicle is staying on the track.
 
 #### 3. Model parameter tuning
 
+##### Optimizer
+
 The model used an adam optimizer, so the learning rate was not tuned manually. 
+
+##### Hyperparameters
+
+Hyperparameters from NVIDIA blog was used, didn't need to fine tune them.
 
 #### 4. Appropriate training data
 
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road.
 
-For details about how I created the training data, see the next section. 
+##### Normalization
+Keras lambda layer is used to normalize data around mean 0, which improves vanishing gradients and also increases convergence.
+
+##### Data augmentation
+
+Was not needed as network already performed with current dataset, but if bigger dataset is needed, Keras generators must be used as memory requirements were already limiting factor on _AWS EC2 g2.2xlarge_ instance.
 
 ### Model Architecture and Training Strategy
 
