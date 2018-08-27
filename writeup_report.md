@@ -73,7 +73,7 @@ Was not needed as network already performed with current dataset, but if bigger 
 
 I followed most most suggestions provided in Udacity classroom and these were enough for the vehicle to be able to drive in the middle of the track.
 
-I used iterative approach doing small changes and testing resulting model in simulator. Step by step description can be found in next chapter below.
+I used iterative approach doing small changes and testing resulting model in simulator. Step by step description can be found in the next chapter below.
 
 #### 2. Iterative Training Process
 
@@ -110,13 +110,13 @@ _Result_: car drives quite well, but for some corners goes over the lines, loses
 
 _Change_: to help car to find way back to middle of road I recorded the vehicle recovering from the left side and right sides of the road back to center.
 
-This was done in everywhere track had different line markings.
+This was done in everywhere on track that had different line markings.
 
 _Result_: vehicle mostly stays in middle of road, but in some places like tight bends it still went off the track
 
 ##### 6. Cropping
 
-_Change_: seemed too much work and overfitting to specific track to record more cases where vehicle recovers to center of track decided to try other solutions. Added cropping top and bottom of the image.
+_Change_: added cropping top and bottom of the image.
 
 _Result_: model worked better, but it still struggled in bends and seemed like steering angle was limited to quite small values
 
@@ -130,9 +130,9 @@ _Result_: model manage now to take first tight bend, but still was not able to t
 
 _Changes_: added usage of left and right cameras with steering correction of _0.2_
 
-_Result_: car drove very well, staying in middle of road and easily took even the tight corners. 
+_Result_: this improved car behaviour dramatically, it stayed in the middle of road and easily took even the tight bends 
 
-This is the final model I submitted. I also played around with second track, but didn't find a way how handle tight ascents, so the architecture in current state does not work on second track. To better understand what change is needed, would probably need to add visualizing internal CNN states.
+This is the final model I submitted. I also played around with second track, but didn't find a way how handle tight ascents, so the architecture in current state does not work on second track. To better understand what change is needed, visualizing internal CNN states is needed.
 
 #### 3. Final Model Architecture
 
