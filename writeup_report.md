@@ -9,10 +9,10 @@
 #### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
-* model.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode
-* model.h5 containing a trained convolution neural network 
-* writeup_report.md summarizing the results
+* **model.py** containing the script to create and train the model
+* **model.h5** containing a trained convolution neural network 
+* **writeup_report.md** summarizing the results
+* **run1.mp4** video showcasing autonomous lap of track 1
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
@@ -29,6 +29,8 @@ The _'Behavioural cloning.ipynb'_ jupyter notebook contains the code for trainin
 #### 1. An appropriate model architecture has been employed
 
 My model consists of a convolution neural network with 5x5 and 3x3 filter sizes and depths between 24 and 64. All convolutional layers use RELU activation functions to introduce linearity.
+
+4 fully connected layers is used with 2 dropout layers to avoid overfitting.
 
 #### 2. Attempts to reduce overfitting in the model
 
@@ -54,7 +56,9 @@ Hyperparameters from NVIDIA blog was used, didn't need to fine tune them.
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road.
+I used a combination of center lane driving, recovering from the left and right sides of the road.
+
+Training data from 2nd track was not used in final model. Although I tried to train model for second track separately.
 
 ##### Normalization
 Keras lambda layer is used to normalize data around mean 0, which improves vanishing gradients and also increases convergence.
@@ -67,45 +71,11 @@ Was not needed as network already performed with current dataset, but if bigger 
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+I followed most most suggestions provided in Udacity classroom and these were enough for the vehicle to be able to drive in the middle of the track.
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+I used iterative approach doing small changes and testing resulting model in simulator. Step by step description can be found in next chapter below.
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
-
-To combat the overfitting, I modified the model so that ...
-
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
-
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
-
-#### 2. Final Model Architecture
-
-The final model architecture consisted of a convolution neural network with the following layers:
-
-| Layer         		|     Description	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Input         		| 160x320x3 RGB image   						| 
-| Convolution 5x5     	| 24 filters, 5x5 kernel, 2x2 strides	        |
-| Relu					|												|
-| Convolution 5x5     	| 36 filters, 5x5 kernel, 2x2 strides  	        |
-| Relu					|												|
-| Convolution 5x5     	| 48 filters, 5x5 kernel, 2x2 strides 	        |
-| Relu					|												|
-| Convolution 3x3     	| 64 filters, 3x3 kernel, no strides 	        |
-| Relu					|												|
-| Convolution 3x3     	| 64 filters, 3x3 kernel, no strides 	        |
-| Flatten	            | Flattens from 2D to 1D                        |
-| Dropout               | Dropout with 0.5 probability					|
-| Fully connected		| Input 1164, outputs 100   					|
-| Dropout               | Dropout with 0.5 probability					|
-| Fully connected		| Input 100, outputs 50      					|
-| Fully connected		| Input 50, outputs 10       					|
-| Fully connected		| Input 10, outputs 1       					|
-
-#### 3. Creation of the Training Set & Training Process
+#### 2. Iterative Training Process
 
 To capture good driving behavior I iteratively did small changes or added new training data and tested how change affected driving. These were the steps:
 
@@ -163,3 +133,27 @@ _Changes_: added usage of left and right cameras with steering correction of _0.
 _Result_: car drove very well, staying in middle of road and easily took even the tight corners. 
 
 This is the final model I submitted. I also played around with second track, but didn't find a way how handle tight ascents, so the architecture in current state does not work on second track. To better understand what change is needed, would probably need to add visualizing internal CNN states.
+
+#### 3. Final Model Architecture
+
+The final model architecture consisted of a convolution neural network with the following layers:
+
+| Layer         		|     Description	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Input         		| 160x320x3 RGB image   						| 
+| Convolution 5x5     	| 24 filters, 5x5 kernel, 2x2 strides	        |
+| Relu					|												|
+| Convolution 5x5     	| 36 filters, 5x5 kernel, 2x2 strides  	        |
+| Relu					|												|
+| Convolution 5x5     	| 48 filters, 5x5 kernel, 2x2 strides 	        |
+| Relu					|												|
+| Convolution 3x3     	| 64 filters, 3x3 kernel, no strides 	        |
+| Relu					|												|
+| Convolution 3x3     	| 64 filters, 3x3 kernel, no strides 	        |
+| Flatten	            | Flattens from 2D to 1D                        |
+| Dropout               | Dropout with 0.5 probability					|
+| Fully connected		| Input 1164, outputs 100   					|
+| Dropout               | Dropout with 0.5 probability					|
+| Fully connected		| Input 100, outputs 50      					|
+| Fully connected		| Input 50, outputs 10       					|
+| Fully connected		| Input 10, outputs 1       					|
